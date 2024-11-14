@@ -1,0 +1,46 @@
+---
+title: "Beeswarm plot"
+author: "Daniela Gavrus Ion"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.width=20, fig.height=30)
+```
+
+```{r, warning = FALSE, message=FALSE}
+if(!require(dplyr))install.packages('dplyr');library(dplyr)
+if(!require(ggplot2)) install.packages('ggplot2');library(ggplot2)
+if(!require(ggbeeswarm)) install.packages('ggbeeswarm');library(ggbeeswarm)
+if(!require(gganimate)) install.packages('gganimate');library(gganimate)
+```
+
+# Salary per gendre
+
+```{r, echo=FALSE, warning=FALSE,results='hide',message =F, gganimate = list(duration = 20, rewind = F), fig.width = 20, fig.height = 30}
+genere <- read.csv("C:/Users/Dana/Documents/UOC/Dades/VD/salary_data.csv", sep = ";")
+genere1 <- genere %>%
+  filter(age > 45 & income < 80000)
+
+a <- ggplot(na.omit(genere1), aes(x = as.factor(gender), y = income, color = as.factor(education_level))) +
+  geom_beeswarm(cex = 3,  priority = "density", size = 0.5) +
+  theme_minimal() + 
+  transition_time(as.numeric(age))+
+  coord_flip()+
+  scale_x_discrete(labels = c("Female", "Male")) +
+  scale_color_manual(labels = c("primary complete","secondary complete","tertiary complete", "post graduate complete"), 
+                     values = c("#7FFFD4", "#9932CC", "#4169E1", "#FF1493"), 
+                     name = "Education level") +
+  labs(title = "Age: {as.integer(frame_time)}")+
+  labs(x = "Gender", 
+       y = "Income")
+#animate(a, duration = 20, rewind = F)
+a
+
+```
+
+
+
+source: [Kaggle](https://www.kaggle.com/datasets/micheldc55/anual-salary-reports-survey)
+
