@@ -2,6 +2,6 @@
 
 Bubble chart  [Fluorish](https://public.flourish.studio/story/2715859/)
 
-Beeswarm plot R GGPLOT2 - html adjunto
+Beeswarm plot: R GGPLOT2 - html adjunto
 
-Voronoi chart 
+Voronoi chart: R - html adjunto
